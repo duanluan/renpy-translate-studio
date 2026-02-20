@@ -1,4 +1,4 @@
-log:
+﻿log:
   # Path for log files, relative to the project root or running directory.
   # 日志文件的路径，相对于项目根目录或运行目录。
   path: logs
@@ -29,3 +29,70 @@ log:
   # Number of compressed backup archives to retain. If smaller than bak-count, effective retention is raised to bak-count.
   # 保留的已压缩归档数量。若小于 bak-count，为避免重复压缩，实际保留数会提升到 bak-count。
   compress-bak-count: 90
+
+renpy_gui:
+  ui:
+    page-title: Ren'Py 翻译工作台
+    min-width: 1060
+    min-height: 760
+    padding: 12
+    log-lines: 10
+
+  pipeline:
+    game-dir: .
+    launcher: ""
+    tools-dir: _tools
+    cache-file: .translation_cache.json
+    language: chinese
+    target-language: Simplified Chinese
+    auto-language-file: _renpy_translate_autolang.rpy
+    rpa-pattern: "*.rpa"
+    provider: openai
+    batch-size: 20
+    sleep-seconds: 0
+    max-lines: 0
+    retries: 3
+    timeout: 180
+    extra-args: ""
+
+    flags:
+      skip-extract: false
+      skip-decompile: false
+      skip-template: false
+      skip-mt: false
+      dry-run: false
+      overwrite: false
+      resume-untranslated: true
+      stop-on-quota: true
+      auto-enable-language: true
+      extract-all-rpa: false
+      unrpyc-no-init-offset: false
+      unrpyc-clobber: false
+
+  openai:
+    model: dolphin3:latest
+    base-url: http://127.0.0.1:11434
+    api-key: ""
+    temperature: 0.1
+    format: json
+
+  deepl:
+    url: https://api-free.deepl.com
+    auth-key: ""
+    target-lang: ZH-HANS
+    source-lang: ""
+
+  quick-fix:
+    provider: none
+    skip-extract: true
+    skip-decompile: true
+    skip-template: true
+    skip-mt: true
+    auto-enable-language: true
+    extract-all-rpa: false
+    unrpyc-no-init-offset: false
+    unrpyc-clobber: false
+    resume-untranslated: true
+    stop-on-quota: true
+    overwrite: false
+    dry-run: false

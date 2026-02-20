@@ -1,5 +1,5 @@
 [project]
-name = "example"
+name = "renpy-translate-studio"
 version = "0.1.0"
 description = ""
 authors = [
@@ -9,6 +9,7 @@ license = "MIT"
 readme = "README.md"
 requires-python = ">=3.9,<=3.13"
 dependencies = [
+  "flet>=0.28.3",
   "pyyaml>=6.0.3",
   "py7zr>=1.0.0",
   "apscheduler>=3.11.0",
