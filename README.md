@@ -191,3 +191,25 @@ python scripts/renpy_translate_pipeline.py \
 ```bash
 pyinstaller -n app1 -D --add-data "src/app1/res;res" -p src src/app1/app1.py
 ```
+
+### Flet 打包 Windows（规避 Reparse Point）
+
+在某些 Windows 文件系统下，`src/app1/app1.py` 可能是 reparse point，`flet build` 会在打包阶段报：
+`Flet app package app/app.zip was not created`。
+
+可使用仓库内脚本先做一次普通文件 staging，再调用 `flet build`：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build_flet_windows.ps1
+```
+
+常用参数：
+
+- `-Output build/windows`：指定输出目录（默认 `build/windows`）
+- `-KeepStage`：保留 staging 目录，便于排查
+- `-SkipDevModeCheck`：跳过 Windows Developer Mode 前置检查
+- `-VerboseBuild`：启用 `flet build -v` 日志
+
+说明：该脚本使用 `git archive HEAD` 生成 staging 源码，因此默认只包含已提交内容。
+另外，构建 Windows 桌面端前请先开启系统 `Developer Mode`（Flutter 插件需要 symlink 支持）。
+脚本会自动尝试修复 `screen_brightness_windows` 已知 Windows 构建问题，并在命中后自动重试一次。
